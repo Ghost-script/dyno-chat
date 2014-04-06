@@ -1,1 +1,1 @@
-web: gunicorn kickchat.wsgi
+web: python kickchat/manage.py pulse
