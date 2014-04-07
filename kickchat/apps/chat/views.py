@@ -23,58 +23,10 @@ activated_navbar_element = 'chat'
 
 
 def index(request):
-	"""if request.method == 'GET' and request.is_ajax():
-
-		# For show-more
-		if request.GET.get('commit') == 'new_message':
-			new = 30
-			first = int(request.GET.get('first'))
-			new_first = 0
-			new_last = 0
-			if first < new:
-				new_last = first - 1
-			else:
-				new_first = first - new
-				new_last = first
-			messages = message.objects.all()[new_first:new_last]
-			html_rows = ''
-			for m in messages:
-				time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
-				html_rows += '''
-				   <tr id="%d">
-					 <td>
-					   <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
-					  </td>
-					 <td>%s</td>
-					 <td style=\'font-size:11px;\'>%s</td>
-					</tr>''' % (m.id, m.username, m.username, m.message, time)
-			disabled = False
-			if new_first == 0:
-				disabled = True
-			json_data = json.dumps({'old_messages': html_rows, 'disabled': disabled})
-			return HttpResponse(json_data, mimetype='application/json')
-
-	messages = []
-	if message.objects.count() > 0:
-		latest_message = message.objects.latest('time')
-		if latest_message.id > 31:
-			messages = message.objects.all()[latest_message.id-30:latest_message.id]
-		else:
-			messages = message.objects.all()
-	else:
-		latest_message = []
-	online_users = CustomUser.objects.filter(is_online=True)
-	current_user = User.objects.get(username=request.user.username)
-	context = RequestContext(request, {
-		'msg' : messages,
-		'online_users' : online_users,
-		'activate_navbar_element_id' : 'chat',
-		'request_user' : request.user,
-		})"""
-	context = RequestContext(request, {
-            'activate_navbar_element_id' : 'chat'
-        })
-	return render_to_response('chat/chat.html', context_instance=context)
+	from django.template import RequestContext
+	return render_to_response('chat/chat.html', {
+        'HOST': request.get_host()
+        }, RequestContext(request))
 
 
 
@@ -169,7 +121,7 @@ class Chat(ws.WS):
 class middleware(object):
     '''Django middleware for serving the Chat websocket.'''
     def __init__(self):
-        self._web_socket = ws.WebSocket('/message', Chat())
+        self._web_socket = ws.WebSocket('/chat/chat-input', Chat())
 
     def process_request(self, request):
         from django.http import HttpResponse

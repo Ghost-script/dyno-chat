@@ -10,8 +10,9 @@ PROJECT_ROOT = os.path.join(os.path.dirname(__file__), os.pardir)
 # Add apps directory to python path
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
 
-import dj_database_url
+"""import dj_database_url
 DATABASES['default']=dj_database_url.config()
+"""
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -22,7 +23,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-"""DATABASES = {
+DATABASES = {
   'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'kickchat',                      # Or path to database file if using sqlite3.
@@ -31,20 +32,20 @@ MANAGERS = ADMINS
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
   }
-}"""
+}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Kolkata/Asia'
+TIME_ZONE = 'Asia/Kolkata'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html

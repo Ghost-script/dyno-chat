@@ -37,10 +37,6 @@
     </div>
     {% endblock %}
 
-    <div class="main-content container">
-       {% block page_content %}{% endblock %}
-    </div>
-
 {% block js %}
 <script src="{{STATIC_URL}}jquery.min.js"></script>
 <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
@@ -48,8 +44,14 @@
     activate_element = "#{{activate_navbar_element_id}}";
 </script>
 <script src="{{STATIC_URL}}base/js/base.js"></script>
-{% block extra_js %}{% endblock %}
 {% endblock %}
+<div class="main-content container">
+       {% block page_content %}{% endblock %}
+</div>    
+
+{% block extra_js %}{% endblock %}
+
+{% block script %}{% endblock %}
 
 </body>
 </html>

@@ -1,5 +1,9 @@
 {% extends "base/base.html" %}
-
+{% block extra_js %}
+<script src="{{STATIC_URL}}chat/js/chat.js"></script>
+<script src="{{STATIC_URL}}json3.min.js"></script>
+<script src="{{STATIC_URL}}chat/js/websock.js"></script>
+{% endblock %}
 {% block extra_css %}
 <link href="{{STATIC_URL}}/chat/css/chat_table.css" rel="stylesheet" />
 {% endblock %}
@@ -8,30 +12,27 @@
 <div class="row">
     <div class="col-xs-2 nopadding">
         <ul class="list-group">
+            
+            {% for i in online_users %}
+            {% if i.user.username == request_user.username %}
             <li class="list-group-item">
                 <span class="badge">14</span>
-                Cras justo odio
+                <a href="/profile" class="list-group-item active" target='blank' style='border:0px;'>
+                <img src='/static/images/images.jpg' height=20px width=20px</img>
+                <b>{{i.user.username}}</b>
+            </a>
             </li>
-             <li class="list-group-item">
+            {% else %}
+            <li class="list-group-item">
                 <span class="badge">14</span>
-                Cras justo odio
+                <a href="/profile/{{i.user.username}}" target='blank' class="list-group-item" style='border:0px;color:#b3b3b3;background:#343131'>
+                <img src='/static/images/images.jpg' height=20px width=20px</img>
+                {{i.user.username}}
+            </a>
             </li>
-             <li class="list-group-item">
-                <span class="badge">14</span>
-                Cras justo odio
-            </li>
-             <li class="list-group-item">
-                <span class="badge">14</span>
-                Cras justo odio
-            </li>
-             <li class="list-group-item">
-                <span class="badge">14</span>
-                Cras justo odio
-            </li>
-             <li class="list-group-item">
-                <span class="badge">14</span>
-                Cras justo odio
-            </li>
+            {% endif %}
+            {% endfor %}
+
         </ul>
     </div>
     <div class="col-xs-8 nopadding">
@@ -195,7 +196,7 @@
     </div>
 
     <div class="col-xs-2 nopadding">
-        <ul class="list-group">
+        <ul id="users" class="list-group">
             <li class="list-group-item">
                 Cras justo odio
             </li>
@@ -226,8 +227,13 @@
         </ul>
     </div>
 </div>
-{% endblock%}
 
-{% block extra_js %}
-<script src="{{STATIC_URL}}chat/js/chat.js"></script>
+
+<script>
+(function($) {
+    $(document).ready(function() {
+        $.wschat(new WebSocket("ws://{{ HOST }}/chat/chat-input"));
+    });
+}(jQuery));
+</script>
 {% endblock %}
