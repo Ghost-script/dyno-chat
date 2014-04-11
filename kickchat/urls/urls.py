@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^search/', 'search.views.index', name='search'),
     url(r'^groups/', 'groups.views.index', name='groups'),
     url(r'^about/', 'home.views.about', name='about'),
-
+	url(r'^logout/', 'home.views.logout_user',name='logout'),
     # url(r'^kickchat/', include('kickchat.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -31,6 +31,29 @@
                 <li class='nav-element' id='about'><a href="/about">About</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>
+            {% if request_user.username != '' %}
+            <li><a>Logged in as  <b>{{request_user.username}}</b></a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <form class="form-inline" role="form" method="POST" accept-charset="UTF-8">
+              {% csrf_token %}
+              <div class="">
+                <label class="sr-only" for="exampleInputEmail2">Username</label>
+                {{ login_form.username }}
+                <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                {{ login_form.password }}
+              </div>
+                <input class="btn btn-primary btn-sm" type="submit" name="commit" value="Sign In" >
+              </div>
+              <div class="checkbox">
+                <label>
+              <input type="checkbox"> <span class="text-muted"><small>Remember me</small></span>    
+                </label>
+              </div>
+              
+            </form>
+            {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
         </div>
@@ -45,13 +68,17 @@
 </script>
 <script src="{{STATIC_URL}}base/js/base.js"></script>
 {% endblock %}
+
 <div class="main-content container">
+
        {% block page_content %}{% endblock %}
+        {% block extra_js %}{% endblock %}
+        {% block script %}{% endblock %}       
 </div>    
 
-{% block extra_js %}{% endblock %}
 
-{% block script %}{% endblock %}
+
+
 
 </body>
 </html>

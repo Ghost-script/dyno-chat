@@ -6,6 +6,8 @@ from django.shortcuts import render, render_to_response, redirect
 from django.template import Context, RequestContext
 
 def index(request):
+    if not request.user.is_authenticated():
+        return redirect('/')
     context = RequestContext(request, {
             'activate_navbar_element_id' : 'profile'
         })

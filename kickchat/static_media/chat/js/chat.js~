@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     // Scroll to the bottom of messages
    
-    //scroll_down();
+    scroll_down();
 });
 $("#chat-input").keypress(function(e) {
     if(e.which == 13) {
